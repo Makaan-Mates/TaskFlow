@@ -1,6 +1,6 @@
 const AsideBar = () => {
   return (
-    <div className=" w-2/12 h-screen flex flex-col justify-between items-center bg-[#1B1B27] text-slate-300  ">
+    <nav className=" w-2/12 h-screen flex flex-col justify-between items-center bg-[#1B1B27] text-slate-300  ">
       <div className="m-2 p-6  flex flex-col ">
         <span className="text-lg my-1 font-semibold cursor-pointer text-white">
           TaskFlow
@@ -19,7 +19,7 @@ const AsideBar = () => {
         <i className="far fa-user mr-1"></i>
         <button>Sign in</button>
       </div>
-    </div>
+    </nav>
   )
 }
 
