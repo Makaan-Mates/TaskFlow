@@ -10,7 +10,7 @@ const Body = () => {
           <i className="fas fa-list mx-2 cursor-pointer"></i>
           <i className="fas fa-th-large mx-2 cursor-pointer"></i>{' '}
         </div>
-        <div className="flex w-[100%] my-8 mx-28 p-4 justify-between">
+        <div className="flex w-[100%] my-4 p-4 justify-between">
           <div className="mx-12 ">
             <Todo />
           </div>
