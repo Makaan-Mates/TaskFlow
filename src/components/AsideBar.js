@@ -5,9 +5,11 @@ const AsideBar = () => {
         <span className="text-lg my-1 font-semibold cursor-pointer text-white">
           TaskFlow
         </span>
-        <butto className="bg-[#3F3E51] px-2 py-1 my-4 rounded-lg cursor-pointer transition ease-in-out delay-50 hover:scale-105 hover:text-slate-50">
+        <button className="bg-[#3F3E51] px-2 py-1 my-4 rounded-lg cursor-pointer transition ease-in-out delay-50 hover:scale-105 hover:text-slate-50">
           Add Task
-        </butto>
+          <i className="fa-solid fa-plus text-sm ml-1"></i>
+        </button>
+      
         <div className="my-2  border-b-2 border-[#3F3E51]"></div>
         <ul className="mt-3 ">
           <li className="my-3 hover:text-slate-50 cursor-pointer">All Tasks</li>
