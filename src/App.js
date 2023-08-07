@@ -1,12 +1,12 @@
-import logo from './logo.svg'
 import './App.css'
+import Body from './components/Body'
+import AsideBar from './components/AsideBar'
 
 function App() {
   return (
-    <div className="App bg-[#282c34] ">
-      <header className="App-header">
-        <img src={logo} className="App-logo  w-24 " alt="logo" />
-      </header>
+    <div className="App flex font-sans">
+      <AsideBar/>
+      <Body/>
     </div>
   )
 }
