@@ -10,8 +10,11 @@ export const taskSlice = createSlice({
       state.tasks.push(action.payload)
       updateLocalStorage(state.tasks)
     },
+      removeItem: (state,action) => {
+        state.tasks.pop()
+      },
     statusCheck: (state, action) => {
-      const currentTask = state.tasks[state.tasks.length - 1]
+      const currentTask = state.tasks.at(-1)
       const { payload } = action
 
       switch (payload) {
@@ -35,11 +38,44 @@ export const taskSlice = createSlice({
       }
       updateLocalStorage(state.tasks)
     },
-    
+    priorityCheck: (state, action) => {
+      const currentTaskP = state.tasks.at(-1)
+      const { payload } = action
+
+      switch (payload) {
+        case 'urgent':
+          currentTaskP.priority.urgent = true
+          currentTaskP.priority.high = false
+          currentTaskP.priority.medium = false
+          currentTaskP.priority.low = false
+          break
+        case 'high':
+          currentTaskP.priority.urgent = false
+          currentTaskP.priority.high = true
+          currentTaskP.priority.medium = false
+          currentTaskP.priority.low = false
+          break
+        case 'medium':
+          currentTaskP.priority.urgent = false
+          currentTaskP.priority.high = false
+          currentTaskP.priority.medium = true
+          currentTaskP.priority.low = false
+          break
+        case 'low':
+          currentTaskP.priority.urgent = false
+          currentTaskP.priority.high = false
+          currentTaskP.priority.medium = false
+          currentTaskP.priority.low = true
+          break
+        default:
+          break
+      }
+      updateLocalStorage(state.tasks)
+    },
   },
 })
 
-export const { addTask, statusCheck } = taskSlice.actions
+export const { addTask, statusCheck , priorityCheck } = taskSlice.actions
 
 export default taskSlice.reducer
 
