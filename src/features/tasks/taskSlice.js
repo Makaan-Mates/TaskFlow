@@ -1,47 +1,55 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const localStorageData = localStorage.getItem("taskItems");
-const items =
-  localStorageData && localStorageData !== "undefined"
-    ? JSON.parse(localStorageData)
-    : [];
+import { createSlice } from '@reduxjs/toolkit'
 
 export const taskSlice = createSlice({
-  name: "task",
+  name: 'task',
   initialState: {
-    tasks: items,
+    tasks: getInitialTasks(),
   },
   reducers: {
     addTask: (state, action) => {
-      state.tasks.push(action.payload);
-      localStorage.setItem(
-        "taskItems",
-        JSON.stringify(state.tasks.map((item) => item))
-      );
+      state.tasks.push(action.payload)
+      updateLocalStorage(state.tasks)
     },
     statusCheck: (state, action) => {
-      if (action.payload === "todo") {
-        state.tasks[state.tasks.length-1].todo = true;
-        state.tasks[state.tasks.length-1].inProgress = false;
-        state.tasks[state.tasks.length-1].done = false;
-      }
-      if (action.payload === "inProgress") {
-        state.tasks[state.tasks.length-1].todo = false;
-        state.tasks[state.tasks.length-1].inProgress = true;
-        state.tasks[state.tasks.length-1].done = false;
-      }
-      if (action.payload === "done") {
-        state.tasks[state.tasks.length-1].todo = false;
-        state.tasks[state.tasks.length-1].inProgress = false;
-        state.tasks[state.tasks.length-1].done = true;
-      }
-      localStorage.setItem(
-        "taskItems",
-        JSON.stringify(state.tasks.map((item) => item))
-      );
-    },
-  },
-});
+      const currentTask = state.tasks[state.tasks.length - 1]
+      const { payload } = action
 
-export const { addTask, statusCheck} = taskSlice.actions;
-export default taskSlice.reducer;
+      switch (payload) {
+        case 'todo':
+          currentTask.todo = true
+          currentTask.inProgress = false
+          currentTask.done = false
+          break
+        case 'inProgress':
+          currentTask.todo = false
+          currentTask.inProgress = true
+          currentTask.done = false
+          break
+        case 'done':
+          currentTask.todo = false
+          currentTask.inProgress = false
+          currentTask.done = true
+          break
+        default:
+          break
+      }
+      updateLocalStorage(state.tasks)
+    },
+    
+  },
+})
+
+export const { addTask, statusCheck } = taskSlice.actions
+
+export default taskSlice.reducer
+
+function getInitialTasks() {
+  const localStorageData = localStorage.getItem('taskItems')
+  return localStorageData && localStorageData !== 'undefined'
+    ? JSON.parse(localStorageData)
+    : []
+}
+
+function updateLocalStorage(tasks) {
+  localStorage.setItem('taskItems', JSON.stringify(tasks))
+}
