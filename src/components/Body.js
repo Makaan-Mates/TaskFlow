@@ -44,6 +44,8 @@ const Body = () => {
       setError("Please enter a task title");
       return;
     }
+
+
     dispatch(addTask(taskItems));
     dispatch(addItemCard(false));
     setTaskTitle("");
@@ -52,6 +54,7 @@ const Body = () => {
     setStatus("");
     setError("");
   };
+  
   const taskItems = {
     title: taskTitle,
     description: taskDescription,
@@ -140,12 +143,14 @@ const Body = () => {
           </div>
         ) : null}
 
+
         {error && (
           <span className="absolute px-4 py-2 bg-red-900 rounded-md  bottom-10">
             <i className="fa-solid fa-triangle-exclamation mr-3"></i>
             {error}
           </span>
         )}
+
 
         <div className="mt-4 mr-2 px-4 py-2 w-[100%] flex justify-end ">
           <i className="fas fa-list mx-2 cursor-pointer"></i>
