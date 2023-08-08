@@ -1,8 +1,12 @@
+import { useState } from 'react'
+import TaskDetails from './TaskDetails'
 import { removeItem } from "../features/tasks/taskSlice";
 import { useDispatch } from "react-redux";
 
 const Tasks = ({ data }) => {
   const dispatch = useDispatch();
+
+  // const [selectedTask, setSelectedTask] = useState(null)
 
   const handleRemoveItem = () => {
     dispatch(removeItem);
@@ -10,7 +14,9 @@ const Tasks = ({ data }) => {
   return (
     <div className="my-6 p-2 flex flex-col  justify-center items-center">
       {data.map((task) => (
+
         <div className="relative  my-3 flex flex-col px-4 pt-8 py-4 w-60 bg-[#3F3E51] hover:bg-[#1B1B27] rounded-md cursor-pointer ">
+
           <span className="font-bold">{task.title}</span>
           <span className="text-slate-300 text-sm mt-4">{task.description}</span>
 
