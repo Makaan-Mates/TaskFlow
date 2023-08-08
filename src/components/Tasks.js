@@ -1,8 +1,12 @@
 import { removeItem } from '../features/tasks/taskSlice'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import TaskDetails from './TaskDetails'
 
 const Tasks = ({ data }) => {
   const dispatch = useDispatch()
+
+  // const [selectedTask, setSelectedTask] = useState(null)
 
   const handleRemoveItem = () => {
     dispatch(removeItem)
@@ -10,7 +14,9 @@ const Tasks = ({ data }) => {
   return (
     <div className="my-6 p-2 flex flex-col  justify-center items-center">
       {data.map((task) => (
-        <div className="relative task my-3 flex flex-col px-4 py-4 w-48 bg-[#3F3E51] hover:bg-slate-600 rounded-md cursor-pointer ">
+        <div
+          className="relative task my-3 flex flex-col px-4 py-4 w-48 bg-[#3F3E51] hover:bg-slate-600 rounded-md cursor-pointer "
+        >
           <span className="font-bold">{task.title}</span>
           <span className="text-slate-300 text-sm">{task.description}</span>
           {Object.entries(task.priority).map(([key, value]) => {
@@ -45,6 +51,7 @@ const Tasks = ({ data }) => {
                     ></i>
                   )
                 default:
+                  return null
               }
             }
             return null
