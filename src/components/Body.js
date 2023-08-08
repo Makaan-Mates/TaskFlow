@@ -35,8 +35,8 @@ const Body = () => {
   const taskItems = {
     title: taskTitle,
     description: taskDescription,
-    todo: false,
-    inProgress: true,
+    todo: true,
+    inProgress: false,
     done: false,
   };
 
