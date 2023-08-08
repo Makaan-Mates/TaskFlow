@@ -3,7 +3,7 @@ import InProgress from "./InProgress";
 import Todo from "./Todo";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../features/tasks/taskSlice";
+import { addTask,statusCheck } from "../features/tasks/taskSlice";
 import { addItemCard } from "../features/addItemCard/addItemCardSlice";
 
 const Body = () => {
@@ -105,6 +105,8 @@ const Body = () => {
                     dispatch(addItemCard(false));
                     setTaskTitle("");
                     setTaskDescription("");
+                    dispatch(statusCheck(status))
+                    setStatus('')
                   }}
                   className="bg-[#575AC6] shadow-inner shadow-[#000000]/40 text-sm font-bold mx-4 mr-14 px-4 py-2  rounded-lg"
                 >
