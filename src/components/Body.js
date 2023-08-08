@@ -16,14 +16,6 @@ const Body = () => {
   const [status, setStatus] = useState('')
   const containerRef = useRef()
 
-  const taskItems = {
-    title: taskTitle,
-    description: taskDescription,
-    todo: true,
-    inProgress: false,
-    done: false,
-  }
-
   console.log(status)
 
   const handleClickOutside = (event) => {
@@ -41,7 +33,6 @@ const Body = () => {
     }
   })
 
-<<<<<<< HEAD
   const handleTitleInput = (event) => {
     setTaskTitle(event.target.value)
   }
@@ -61,7 +52,6 @@ const Body = () => {
     setStatus('')
     setError('')
   }
-=======
   const taskItems = {
     title: taskTitle,
     description: taskDescription,
@@ -69,7 +59,6 @@ const Body = () => {
     inProgress: false,
     done: false,
   };
->>>>>>> c490d711c20ee5c9806e02c3885e3c18a843f475
 
   return (
     <>
