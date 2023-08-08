@@ -44,6 +44,7 @@ const Body = () => {
       setError('Please enter a task title')
       return
     }
+    
     dispatch(addTask(taskItems))
     dispatch(addItemCard(false))
     setTaskTitle('')
@@ -132,7 +133,7 @@ const Body = () => {
           </div>
         ) : null}
 
-        <span className=''>{error && { error }}</span>
+        <span className='absolute'>{ error }</span>
 
         <div className="mt-4 mr-2 px-4 py-2 w-[100%] flex justify-end ">
           <i className="fas fa-list mx-2 cursor-pointer"></i>
