@@ -1,66 +1,66 @@
-import Done from './Done'
-import InProgress from './InProgress'
-import Todo from './Todo'
-import { useState, useRef, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import Done from "./Done";
+import InProgress from "./InProgress";
+import Todo from "./Todo";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addTask,
   priorityCheck,
   statusCheck,
-} from '../features/tasks/taskSlice'
-import { addItemCard } from '../features/addItemCard/addItemCardSlice'
+} from "../features/tasks/taskSlice";
+import { addItemCard } from "../features/addItemCard/addItemCardSlice";
 
 const Body = () => {
-  const dispatch = useDispatch()
-  const showAddItemCard = useSelector((state) => state.addItemCard.flag)
+  const dispatch = useDispatch();
+  const showAddItemCard = useSelector((state) => state.addItemCard.flag);
 
-  const [taskTitle, setTaskTitle] = useState('')
-  const [error, setError] = useState('')
-  const [taskDescription, setTaskDescription] = useState('')
-  const [status, setStatus] = useState('')
-  const [priority, setpriority] = useState('')
-  const containerRef = useRef()
+  const [taskTitle, setTaskTitle] = useState("");
+  const [error, setError] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [priority, setpriority] = useState("");
+  const containerRef = useRef();
 
   //   console.log(status)
   // console.log(priority)
 
   const handleClickOutside = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
-      dispatch(addItemCard(false))
+      dispatch(addItemCard(false));
     }
-  }
+  };
 
   useEffect(() => {
     if (showAddItemCard) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  })
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   const handleTitleInput = (event) => {
-    setTaskTitle(event.target.value)
-  }
+    setTaskTitle(event.target.value);
+  };
 
   const handleCreateTask = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (taskTitle.length === 0) {
-      setError('Please enter a task title')
-      return
+      setError("Please enter a task title");
+      return;
     }
 
-    dispatch(addTask(taskItems))
-    dispatch(addItemCard(false))
-    setTaskTitle('')
-    setTaskDescription('')
-    dispatch(statusCheck(status))
-    dispatch(priorityCheck(priority))
-    setStatus('')
-    setpriority('')
-    setError('')
-  }
+    dispatch(addTask(taskItems));
+    dispatch(addItemCard(false));
+    setTaskTitle("");
+    setTaskDescription("");
+    dispatch(statusCheck(status));
+    dispatch(priorityCheck(priority));
+    setStatus("");
+    setpriority("");
+    setError("");
+  };
 
   const taskItems = {
     title: taskTitle,
@@ -68,21 +68,16 @@ const Body = () => {
     todo: true,
     inProgress: false,
     done: false,
-    priority: {
-      urgent: false,
-      high: false,
-      medium: true,
-      low: false,
-    },
-  }
+    priority: "medium",
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setError('')
-    }, 2000)
+      setError("");
+    }, 2000);
 
-    return () => clearTimeout(timer)
-  }, [error])
+    return () => clearTimeout(timer);
+  }, [error]);
 
   return (
     <>
@@ -115,11 +110,13 @@ const Body = () => {
                   name="Status"
                   value={status}
                   onChange={(e) => {
-                    setStatus(e.target.value)
+                    setStatus(e.target.value);
                   }}
                 >
-                  <option  value="placeholder">Status</option>
-                  <option className='my-2' value="todo">Todo</option>
+                  <option value="placeholder">Status</option>
+                  <option className="my-2" value="todo">
+                    Todo
+                  </option>
                   <option value="inProgress">In Progress</option>
                   <option value="done">Done</option>
                 </select>
@@ -128,7 +125,7 @@ const Body = () => {
                   name="Priority"
                   value={priority}
                   onChange={(e) => {
-                    setpriority(e.target.value)
+                    setpriority(e.target.value);
                   }}
                 >
                   <option value="placeholder">Priority</option>
@@ -169,7 +166,7 @@ const Body = () => {
 
         <div className="mt-4 mr-2 px-4 py-2 w-[100%] flex justify-end ">
           <i className="fas fa-list mx-2 cursor-pointer"></i>
-          <i className="fas fa-th-large mx-2 cursor-pointer"></i>{' '}
+          <i className="fas fa-th-large mx-2 cursor-pointer"></i>{" "}
         </div>
         <div className="flex w-[100%] my-4 p-4 justify-between">
           <div className="mx-12 ">
@@ -184,7 +181,7 @@ const Body = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
