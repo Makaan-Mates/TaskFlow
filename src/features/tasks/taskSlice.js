@@ -10,7 +10,7 @@ export const taskSlice = createSlice({
       state.tasks.push(action.payload)
       updateLocalStorage(state.tasks)
     },
-      removeItem: (state,action) => {
+    removeItem: (state,action) => {
         state.tasks.pop()
       },
     statusCheck: (state, action) => {
@@ -75,7 +75,7 @@ export const taskSlice = createSlice({
   },
 })
 
-export const { addTask, statusCheck , priorityCheck } = taskSlice.actions
+export const { addTask, statusCheck , priorityCheck,removeItem } = taskSlice.actions
 
 export default taskSlice.reducer
 

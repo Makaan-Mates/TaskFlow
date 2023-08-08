@@ -90,7 +90,7 @@ const Body = () => {
         {showAddItemCard ? (
           <div
             ref={containerRef}
-            className="absolute justify-between flex flex-col backdrop-filter rounded-xl bg-[#1B1B27]/50 backdrop-blur-xl top-[18%] w-[65%] h-[60%]"
+            className="absolute z-10 justify-between flex flex-col backdrop-filter rounded-xl bg-[#1B1B27]/50 backdrop-blur-xl top-[18%] w-[65%] h-[60%]"
           >
             <div>
               <input
