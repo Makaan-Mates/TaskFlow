@@ -35,6 +35,10 @@ export const taskSlice = createSlice({
         state.tasks[state.tasks.length-1].inProgress = false;
         state.tasks[state.tasks.length-1].done = true;
       }
+      localStorage.setItem(
+        "taskItems",
+        JSON.stringify(state.tasks.map((item) => item))
+      );
     },
   },
 });
