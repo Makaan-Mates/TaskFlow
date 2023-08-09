@@ -65,6 +65,7 @@ const Body = () => {
 
   const taskItems = {
     taskid: uuidv4(),
+    // taskid: new Date().getTime().toString() ,
     title: taskTitle,
     description: taskDescription,
     todo: true,
@@ -108,7 +109,7 @@ const Body = () => {
             <div className="flex  items-center justify-between mb-10 ml-8">
               <div>
                 <select
-                  className="appearance-none text-center bg-[#3F3E51]  px-2 py-1 text-sm rounded-xl focus:outline-none  "
+                  className=" w-20 appearance-none text-center bg-[#3F3E51]  px-2 py-1 text-sm rounded-xl focus:outline-none  "
                   name="Status"
                   value={status}
                   onChange={(e) => {
@@ -123,21 +124,22 @@ const Body = () => {
                   <option value="done">Done</option>
                 </select>
                 <select
-                  className="appearance-none text-center bg-[#3F3E51] mx-3 px-2 py-1 text-sm rounded-xl focus:outline-none"
+                  className="w-20 appearance-none text-center bg-[#3F3E51] mx-3 px-2 py-1 text-sm rounded-xl focus:outline-none items-center"
                   name="Priority"
                   value={priority}
                   onChange={(e) => {
                     setpriority(e.target.value)
                   }}
                 >
-                  <option value="placeholder">Priority</option>
+                  <option  value="placeholder">Priority</option>
                   <option value="urgent">Urgent</option>
+                  
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
                 <select
-                  className="appearance-none text-center bg-[#3F3E51] px-2 py-1 text-sm rounded-xl focus:outline-none"
+                  className=" w-20 appearance-none text-center bg-[#3F3E51] px-2 py-1 text-sm rounded-xl focus:outline-none"
                   name="Status"
                 >
                   <option value="placeholder">Tags</option>
