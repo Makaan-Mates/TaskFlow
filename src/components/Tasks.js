@@ -24,7 +24,7 @@ const Tasks = ({ data }) => {
           <div className="relative  my-3 flex flex-col px-4 pt-8 py-4 w-60 bg-[#3F3E51] hover:bg-[#1B1B27] rounded-md cursor-pointer ">
             <span className="font-bold">{task?.title}</span>
             <span className="text-slate-300 text-sm mt-4 whitespace-pre-line">
-              {truncateDescription(task?.description, 7)}
+              {truncateDescription(task?.description, 9)}
             </span>
             {task.priority === 'high' ? (
               <i className="fa-solid flex justify-end ml-4 text-sm text-green-800 fa-flag"></i>
