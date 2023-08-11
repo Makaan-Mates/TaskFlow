@@ -22,9 +22,6 @@ const Body = () => {
   const [priority, setpriority] = useState('')
   const containerRef = useRef()
 
-  //   console.log(status)
-  // console.log(priority)
-
   const handleClickOutside = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
       dispatch(addItemCard(false))
@@ -84,7 +81,7 @@ const Body = () => {
 
   return (
     <>
-      <div className=" relative w-10/12 flex flex-col items-center  text-lg bg-[#141111] text-white">
+      <div className=" relative w-10/12  flex flex-col items-center  text-lg bg-[#141111] text-white">
         {showAddItemCard ? (
           <div
             ref={containerRef}
@@ -172,14 +169,14 @@ const Body = () => {
           <i className="fas fa-list mx-2 cursor-pointer"></i>
           <i className="fas fa-th-large mx-2 cursor-pointer"></i>{' '}
         </div>
-        <div className="flex w-[100%] my-4 mr-10 p-4 justify-between">
-          <div className="mx-12 ">
+        <div className=" w-[100%] m-4  p-4 flex justify-between ">
+          <div className="mx-10 ">
             <Todo />
           </div>
-          <div className="mx-12">
+          <div className="mx-10 ">
             <InProgress />
           </div>
-          <div className="mx-12">
+          <div className="mx-10 ">
             <Done />
           </div>
         </div>

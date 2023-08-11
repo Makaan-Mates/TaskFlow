@@ -6,7 +6,7 @@ const InProgress = () => {
 
   const inProgress = tasks.filter((item)=>(item.inProgress===true))
   return (
-    <div className="m-2 flex flex-col justify-center items-center">
+    <div className="m-2 flex flex-col  items-center w-64">
       <span className="flex items-center">
         <i className="fas fa-sync-alt mr-2 hover:animate-spin-slow"></i>
         <h2 className="text-base ">In Progress</h2>
