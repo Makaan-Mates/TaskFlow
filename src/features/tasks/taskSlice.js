@@ -61,6 +61,45 @@ export const taskSlice = createSlice({
       }
       updateLocalStorage(state.tasks)
     },
+     updateOnDnd : (state, action)=>{
+
+      const { taskid, newTodoValue } = action.payload;
+      const updatedTasks = state.tasks.map((task) =>
+        task.taskid === taskid ? { ...task, todo: newTodoValue } : task
+      );
+      state.tasks = updatedTasks;
+   
+
+  
+      // payload[0]?.todo = false;
+      // payload[0]?.inProgress=true;
+      // updateLocalStorage(state.tasks)
+
+      
+
+      // switch(){
+      //   case '':
+      //     payload.todo = true
+      //     payload.inProgress = false
+      //     payload.done = false
+      //     break
+      //   case 'inProgress':
+      //     currentTask.todo = false
+      //     currentTask.inProgress = true
+      //     currentTask.done = false
+      //     break
+      //   case 'done':
+      //     currentTask.todo = false
+      //     currentTask.inProgress = false
+      //     currentTask.done = true
+      //     break
+      //   default:
+      //     break
+      // }
+
+
+
+     }
   },
 })
 
@@ -69,6 +108,7 @@ export const {
   statusCheck,
   priorityCheck,
   removeItem,
+  updateOnDnd
 } = taskSlice.actions
 
 export default taskSlice.reducer
