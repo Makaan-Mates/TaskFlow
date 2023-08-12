@@ -2,8 +2,11 @@ import { useDispatch } from 'react-redux'
 import { addItemCard } from '../features/addItemCard/addItemCardSlice'
 import { Link } from 'react-router-dom'
 
+
 const AsideBar = () => {
   const dispatch = useDispatch()
+ 
+
   return (
     <nav className=" w-2/12  h-[100vh] flex flex-col justify-between items-center bg-[#1B1B27] text-slate-300  ">
       <div className="m-2 p-6  flex flex-col ">
@@ -33,7 +36,7 @@ const AsideBar = () => {
           <li className="my-3 hover:text-slate-50 cursor-pointer">Backlog</li>
         </ul>
       </div>
-      <div className="mb-4 flex items-center cursor-pointer hover:text-slate-50">
+      <div  className="mb-4 z-10 flex items-center cursor-pointer hover:text-slate-50">
         <i className="far fa-user mr-1"></i>
         <button>Sign in</button>
       </div>
