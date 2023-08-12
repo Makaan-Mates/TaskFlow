@@ -4,6 +4,7 @@ import Todo from './Todo'
 import { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
+import {DndContext,closestCenter} from '@dnd-kit/core';
 import {
   addTask,
   priorityCheck,
@@ -12,6 +13,17 @@ import {
 import { addItemCard } from '../features/addItemCard/addItemCardSlice'
 
 const Body = () => {
+
+   const [ parent, setParent ] = useState('')
+
+   const handleDragEnd = (event)=>{
+     
+      setParent(event.over ? event.over.id : null)
+
+    }
+
+
+
   const dispatch = useDispatch()
   const showAddItemCard = useSelector((state) => state.addItemCard.flag)
 
@@ -80,6 +92,7 @@ const Body = () => {
   }, [error])
 
   return (
+   <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
     <>
       <div className=" relative w-10/12  flex flex-col items-center  text-lg bg-[#141111] text-white">
         {showAddItemCard ? (
@@ -171,7 +184,7 @@ const Body = () => {
         </div>
         <div className=" w-[100%] m-4  p-4 flex justify-between ">
           <div className="mx-10 ">
-            <Todo />
+            <Todo parent={parent} />
           </div>
           <div className="mx-10 ">
             <InProgress />
@@ -182,6 +195,7 @@ const Body = () => {
         </div>
       </div>
     </>
+    </DndContext>
   )
 }
 
