@@ -1,24 +1,26 @@
 import React from 'react'
 // import { Link } from 'react-router-dom';
-import { useDraggable } from '@dnd-kit/core'
+import { useSortable } from '@dnd-kit/sortable'
+import {useDraggable} from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { useDispatch } from 'react-redux'
 import { removeItem } from '../features/tasks/taskSlice'
 
-const DraggableTask = ({ task, id }) => {
+const DraggableTask = ({ id,task }) => {
   const {
     attributes,
     listeners,
     setNodeRef,
     transform,
-    isDragging,
-  } = useDraggable({
+    transition
+  } = useSortable({
     id: id,
   })
 
   const style = {
-    transform: CSS.Translate.toString(transform),
-  }
+    transform: CSS.Transform.toString(transform),
+    transition: transition || 'none'
+  };
 
   const dispatch = useDispatch()
 
@@ -34,12 +36,6 @@ const DraggableTask = ({ task, id }) => {
     return description
   }
 
-  const handleMouseUp = (e) => {
-    if (isDragging) {
-      e.preventDefault()
-    }
-  }
-
   return (
     // <Link
     // to={!isDragging ? `/taskdetails/${task?.taskid}` : null}
@@ -51,7 +47,7 @@ const DraggableTask = ({ task, id }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="relative my-3 flex flex-col px-4 pt-8 py-4 cursor-grab w-60 bg-[#3F3E51] hover:bg-[#1B1B27] rounded-md  "
+      className=" my-3 relative flex flex-col px-4 pt-8 py-4 cursor-grab w-60  hover:bg-[#1B1B27] rounded-md  "
     >
       <span className="font-bold">{task?.title}</span>
       <span className="text-slate-300 text-sm mt-4 whitespace-pre-line">
@@ -83,4 +79,4 @@ const DraggableTask = ({ task, id }) => {
   )
 }
 
-export default DraggableTask
+export default DraggableTask;
