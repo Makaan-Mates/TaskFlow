@@ -4,12 +4,6 @@ import AsideBar from './components/AsideBar'
 import { Route, Routes } from 'react-router-dom'
 import TaskDetails from './components/TaskDetails'
 
-
-
-
-
-
-
 function App() {
   
 
