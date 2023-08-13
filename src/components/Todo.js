@@ -1,36 +1,37 @@
-import Tasks from "./Tasks";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useDroppable } from "@dnd-kit/core";
-import DraggableTask from "./DraggableTask";
-import { useDispatch } from "react-redux";
-import { updateOnDnd } from "../features/tasks/taskSlice";
+import Tasks from './Tasks'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { useDroppable } from '@dnd-kit/core'
+import DraggableTask from './DraggableTask'
+import { useDispatch } from 'react-redux'
+import { updateOnDnd } from '../features/tasks/taskSlice'
 
-
-const Todo = ({parent}) => {
-
+const Todo = ({ parent }) => {
   const dispatch = useDispatch()
   const { isOver, setNodeRef } = useDroppable({
-    id: "todo-container",
-  });
+    id: 'todo-container',
+  })
 
   const style = {
-    background: isOver ? "green" : undefined,
-  };
-
-  const tasks = useSelector((state) => state.task.tasks);
-
-  const todos = tasks.filter((item) => item.todo === true);
-
-
-
-
-  const handleDropEvent=(task)=>{
-
-    dispatch(updateOnDnd(task))
-
+    background: isOver ? 'green' : undefined,
   }
 
- 
+  const tasks = useSelector((state) => state.task.tasks)
+
+  const todos = tasks.filter((item) => item.todo === true)
+
+  const handleDropEvent = (taskid) => {
+    dispatch(updateOnDnd(taskid))
+  }
+
+  const renderTasks = () => {
+    if (parent === 'inprogress-container') {
+      todos.forEach((task) => handleDropEvent(task?.taskid))
+    } else {
+      return todos.map((task) => (
+        <Tasks id={task?.taskid} key={task?.taskid} task={task} />
+      ))
+    }
+  }
 
   return (
     <>
@@ -44,14 +45,11 @@ const Todo = ({parent}) => {
           <h2 className="text-base ">Todo</h2>
         </span>
         <div className="my-6 p-2 flex flex-col  justify-center items-center">
-          {todos.map((task) => (
-             parent==='inprogress-container' ? handleDropEvent(task) : 
-            <Tasks id={task?.taskid} key={task?.taskid} task={task} />
-          ))}
+          {renderTasks()}
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Todo;
+export default Todo
