@@ -1,76 +1,76 @@
-import Done from './Done'
-import InProgress from './InProgress'
-import Todo from './Todo'
-import { useState, useRef, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
-import {DndContext,closestCenter} from '@dnd-kit/core';
+import Done from "./Done";
+import InProgress from "./InProgress";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { DndContext, closestCorners } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import {
   addTask,
   priorityCheck,
   statusCheck,
-} from '../features/tasks/taskSlice'
-import { addItemCard } from '../features/addItemCard/addItemCardSlice'
+} from "../features/tasks/taskSlice";
+import { addItemCard } from "../features/addItemCard/addItemCardSlice";
+import DraggableTask from "./DraggableTask";
 
 const Body = () => {
+  const tasks = useSelector((state) => state.task.tasks);
 
-   const [ parent, setParent ] = useState('')
+  const todos = tasks.filter((item) => item.todo === true);
 
-   const handleDragEnd = (event)=>{
-     
-      setParent(event.over ? event.over.id : null)
+  const [items, setItems] = useState(todos);
 
-    }
+  const dispatch = useDispatch();
+  const showAddItemCard = useSelector((state) => state.addItemCard.flag);
 
-
-
-  const dispatch = useDispatch()
-  const showAddItemCard = useSelector((state) => state.addItemCard.flag)
-
-  const [taskTitle, setTaskTitle] = useState('')
-  const [error, setError] = useState('')
-  const [taskDescription, setTaskDescription] = useState('')
-  const [status, setStatus] = useState('')
-  const [priority, setpriority] = useState('')
-  const containerRef = useRef()
+  const [taskTitle, setTaskTitle] = useState("");
+  const [error, setError] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [priority, setpriority] = useState("");
+  const containerRef = useRef();
 
   const handleClickOutside = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
-      dispatch(addItemCard(false))
+      dispatch(addItemCard(false));
     }
-  }
+  };
 
   useEffect(() => {
     if (showAddItemCard) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  })
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   const handleTitleInput = (event) => {
-    setTaskTitle(event.target.value)
-  }
+    setTaskTitle(event.target.value);
+  };
 
   const handleCreateTask = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (taskTitle.length === 0) {
-      setError('Please enter a task title')
-      return
+      setError("Please enter a task title");
+      return;
     }
 
-    dispatch(addTask(taskItems))
-    dispatch(addItemCard(false))
-    setTaskTitle('')
-    setTaskDescription('')
-    dispatch(statusCheck(status))
-    dispatch(priorityCheck(priority))
-    setStatus('')
-    setpriority('')
-    setError('')
-  }
+    dispatch(addTask(taskItems));
+    dispatch(addItemCard(false));
+    setTaskTitle("");
+    setTaskDescription("");
+    dispatch(statusCheck(status));
+    dispatch(priorityCheck(priority));
+    setStatus("");
+    setpriority("");
+    setError("");
+  };
 
   const taskItems = {
     taskid: uuidv4(),
@@ -80,20 +80,33 @@ const Body = () => {
     todo: true,
     inProgress: false,
     done: false,
-    priority: 'medium',
-  }
+    priority: "medium",
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setError('')
-    }, 2000)
+      setError("");
+    }, 2000);
 
-    return () => clearTimeout(timer)
-  }, [error])
+    return () => clearTimeout(timer);
+  }, [error]);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    console.log(active.id);
+    if (active.id !== over.id) {
+      setItems((items) => {
+        const oldIndex = items.findIndex((item) => item.taskid === active.id);
+        const newIndex = items.findIndex((item) => item.taskid === over.id);
+        console.log(items);
+        console.log(newIndex);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
 
   return (
-   <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-    <>
+    <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
       <div className=" relative w-10/12  flex flex-col items-center  text-lg bg-[#141111] text-white">
         {showAddItemCard ? (
           <div
@@ -123,7 +136,7 @@ const Body = () => {
                   name="Status"
                   value={status}
                   onChange={(e) => {
-                    setStatus(e.target.value)
+                    setStatus(e.target.value);
                   }}
                 >
                   <option value="placeholder">Status</option>
@@ -138,12 +151,12 @@ const Body = () => {
                   name="Priority"
                   value={priority}
                   onChange={(e) => {
-                    setpriority(e.target.value)
+                    setpriority(e.target.value);
                   }}
                 >
-                  <option  value="placeholder">Priority</option>
+                  <option value="placeholder">Priority</option>
                   <option value="urgent">Urgent</option>
-                  
+
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
@@ -180,23 +193,36 @@ const Body = () => {
 
         <div className="mt-4 mr-2 px-4 py-2 w-[100%] flex justify-end ">
           <i className="fas fa-list mx-2 cursor-pointer"></i>
-          <i className="fas fa-th-large mx-2 cursor-pointer"></i>{' '}
+          <i className="fas fa-th-large mx-2 cursor-pointer"></i>{" "}
         </div>
+
         <div className=" w-[100%] m-4  p-4 flex justify-between ">
-          <div className="mx-10 ">
-            <Todo parent={parent} />
+          <div className="mx-10 bg-red-800 p-4">
+            <SortableContext
+              items={items}
+              strategy={verticalListSortingStrategy}
+            >
+              {items?.map((task) => (
+                <DraggableTask
+                  key={task?.taskid}
+                  id={task?.taskid}
+                  task={task}
+                />
+              ))}
+            </SortableContext>
           </div>
+
           <div className="mx-10 ">
             <InProgress />
           </div>
+
           <div className="mx-10 ">
             <Done />
           </div>
         </div>
       </div>
-    </>
     </DndContext>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
