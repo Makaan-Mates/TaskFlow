@@ -1,15 +1,8 @@
 import Tasks from './Tasks'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
-// import {useDroppable} from "@dnd-kit/core"
 
 const InProgress = () => {
   const tasks = useSelector((state)=>state.task.tasks)
-
-  // const {isOver,setNodeRef} = useDroppable({
-  //   id: 'inprogress-container',
-  // });
-
-
 
   const inProgress = tasks.filter((item)=>(item.inProgress===true))
   return (
