@@ -10,6 +10,7 @@ import {
 } from '../features/tasks/taskSlice'
 import { addItemCard } from '../features/addItemCard/addItemCardSlice'
 import Todo from './Todo'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 const Body = () => {
   const dispatch = useDispatch()
@@ -79,6 +80,7 @@ const Body = () => {
   }, [error])
 
   return (
+    <DragDropContext>
     <div className=" relative w-10/12  flex flex-col items-center  text-lg bg-[#141111] text-white">
       {showAddItemCard ? (
         <div
@@ -180,6 +182,7 @@ const Body = () => {
         </div>
       </div>
     </div>
+    </DragDropContext>
   )
 }
 
